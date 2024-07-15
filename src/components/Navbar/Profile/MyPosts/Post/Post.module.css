@@ -1,0 +1,10 @@
+.item {
+    color: blanchedalmond;
+}
+
+.item img {
+    width: 60px;
+    height: 60px;
+    border-radius: 25px;
+}
+

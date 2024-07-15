@@ -1,0 +1,29 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    grid-template-areas:
+    'u m';
+}
+
+.dialogs_items {
+    display: contents;
+}
+
+.dialog a {
+    text-decoration: none;
+    color: white;
+}
+
+.dialog a.activeLink {
+    color: darkgreen;
+}
+
+.messages {
+    grid-area: m;
+    padding: 10px;
+}
+
+.users {
+    grid-area: u;
+    padding: 10px;
+}
