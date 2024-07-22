@@ -2,7 +2,8 @@
     display: grid;
     grid-template-columns: 2fr 10fr;
     grid-template-areas:
-    'u m';
+    'u m'
+    'u a';
 }
 
 .dialogs_items {
@@ -26,4 +27,7 @@
 .users {
     grid-area: u;
     padding: 10px;
+}
+.messages_area{
+    grid-area: a;
 }

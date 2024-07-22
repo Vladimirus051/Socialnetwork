@@ -7,31 +7,21 @@ import DialogItem from "./DialogItem/DialogItem";
 
 const Dialogs = (props) => {
 
-    let dialogs = [
-        {id: 1, name: 'Dima'},
-        {id: 2, name: 'Nika'},
-        {id: 3, name: 'Roba'},
-        {id: 4, name: 'Koly'},
-        {id: 5, name: 'Vicha'},
-        {id: 6, name: 'Pol'}
-    ]
 
-    let messages = [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'How r u?'},
-        {id: 3, message: 'GG'},
-        {id: 4, message: 'WP'},
-        {id: 5, message: 'Games i like'},
-        {id: 6, message: 'Minecraf'},
-    ]
-
-    let dialogsItemDataElements = dialogs.map(el =>
+    let dialogsItemDataElements = props.state.dialogs.map(el =>
         (<DialogItem nameuser={el.name} id_user={el.id}/>)
     )
 
-    let messageElements = messages.map(el =>
+    let messageElements = props.state.messages.map(el =>
         (<MessageItem message={el.message}/>)
     )
+
+    let newSendElement = React.createRef();
+
+    let send = () => {
+        let text = newSendElement.current.value;
+        alert(text);
+    }
 
     return (
         <div className={s.dialogs}>
@@ -41,6 +31,12 @@ const Dialogs = (props) => {
                 </div>
                 <div className={s.messages}>
                     {messageElements}
+                </div>
+                <div className={s.messages_area}>
+                    <textarea ref={newSendElement}></textarea>
+                    <div>
+                        <button onClick={send}>Send</button>
+                    </div>
                 </div>
             </div>
         </div>

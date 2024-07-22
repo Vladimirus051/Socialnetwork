@@ -3,7 +3,9 @@ import React from "react";
 const MessageItem = (props) => {
     return (
         <div>
-            {props.message}
+            <li>
+                {props.message}
+            </li>
         </div>
     )
 }
