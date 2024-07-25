@@ -1,3 +1,8 @@
+import ProfileReducer from "./ProfileReducer";
+import DialogsReducer from "./DialogsReducer";
+import NavBarReducer from "./NavBarReducer";
+
+
 let store = {
     _state: {
         dialogPage: {
@@ -17,6 +22,7 @@ let store = {
                 {id: 5, message: 'Games i like'},
                 {id: 6, message: 'Minecraft'},
             ],
+            newMessageText: '',
         },
         profilePage: {
             posts: [
@@ -28,32 +34,30 @@ let store = {
         navBar: {},
 
     },
-    getState() {
-        debugger
-        return this._state
-    },
     _rerenderEntireTree() {
         console.log('State changed')
     },
-    addPost() {
-        debugger
-        let newPost = {
-            id: 5,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0,
-        };
 
-        this._state.profilePage.posts.push(newPost);
-        this._rerenderEntireTree(this._state)
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._rerenderEntireTree(this._state)
+    getState() {
+        return this._state
     },
     subscribe(observer) {
         this._rerenderEntireTree = observer
     },
+
+    dispatch(action) {
+
+        this._state.profilePage = ProfileReducer(this._state.profilePage, action)
+        this._state.dialogPage = DialogsReducer(this._state.dialogPage, action)
+        this._state.navBar = NavBarReducer(this._state.navBar, action)
+
+        this._rerenderEntireTree(this._state)
+
+    },
 }
+
+
+
 
 export default store
 
