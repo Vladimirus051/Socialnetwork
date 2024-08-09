@@ -8,7 +8,7 @@ import Music from "./components/Navbar/Music/Music";
 import News from "./components/Navbar/News/News";
 import Settings from "./components/Navbar/Settings/Settings";
 import DialogsContainer from "./components/Navbar/Dialogs/DialogsContainer";
-import FindUsers from "./components/Navbar/FindUsers/FindUsers";
+import FindUsersContainer from "./components/Navbar/FindUsers/FindUsersContainer";
 
 const App = () => {
     debugger
@@ -23,7 +23,7 @@ const App = () => {
                     <Route path="/news" element={<News/>}/>
                     <Route path="/music" element={<Music/>}/>
                     <Route path="/settings" element={<Settings/>}/>
-                    <Route path="/find_users" element={<FindUsers/>}/>
+                    <Route path="/find_users" element={<FindUsersContainer/>}/>
                 </Routes>
             </div>
         </div>
