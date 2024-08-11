@@ -11,7 +11,6 @@ import DialogsContainer from "./components/Navbar/Dialogs/DialogsContainer";
 import FindUsersContainer from "./components/Navbar/FindUsers/FindUsersContainer";
 
 const App = () => {
-    debugger
     return (
         <div className='app-wrapper'>
             <Header/>

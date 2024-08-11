@@ -1,33 +1,42 @@
-import s from './FindUsers.module.css'
-import axios from "axios";
-import userPhoto from '../../../assets/images/users_asset_image.png'
 import React from "react";
+import s from "./FindUsers.module.css";
+import userPhoto from "../../../assets/images/users_asset_image.png";
 
-class FindUsers extends React.Component {
+const FindUsers = (props) => {
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-    constructor(props) {
-        super(props);
-
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            debugger
-            this.props.setUsers(response.data.items)
-        })
+    let pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    render() {
-        return (
+    return (
+        <div>
             <div>
-                {this.props.users.map(u => <div key={u.id}>
+                <div>
+                    {pages.map(p => {
+                        return (
+                            <span className={props.currentPage === p && s.selectedPage} onClick={
+                                (e) => {
+                                    props.onPageChanged(p)
+                                }}>{p}</span>)
+                    })}
+                    {/*<span className={s.selectedPage}>2</span>*/}
+                    {/*<span>3</span>*/}
+                    {/*<span>4</span>*/}
+                    {/*<span>5</span>*/}
+                </div>
+                {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
                         <img className={s.users_photo} src={u.photos.small != null ? u.photos.small : userPhoto}/>
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {
-                                this.props.unfollow(u.id)
+                                props.unfollow(u.id)
                             }}>Follow</button>
                             : <button onClick={() => {
-                                this.props.follow(u.id)
+                                props.follow(u.id)
                             }}>Unfollow</button>}
                         </div>
                 </span>
@@ -43,8 +52,8 @@ class FindUsers extends React.Component {
                 </span>
                 </div>)}
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default FindUsers
