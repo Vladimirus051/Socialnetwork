@@ -14,17 +14,14 @@ const FindUsers = (props) => {
         <div>
             <div>
                 <div>
-                    {pages.map(p => {
-                        return (
-                            <span className={props.currentPage === p && s.selectedPage} onClick={
-                                (e) => {
-                                    props.onPageChanged(p)
-                                }}>{p}</span>)
-                    })}
-                    {/*<span className={s.selectedPage}>2</span>*/}
-                    {/*<span>3</span>*/}
-                    {/*<span>4</span>*/}
-                    {/*<span>5</span>*/}
+                    <div className={s.selectedPages}>
+                        {pages.map(p => {
+                            return <div style={{display: "inline-block"}} className={props.currentPage === p && s.selectedPage} onClick={
+                                    (e) => {
+                                        props.onPageChanged(p)
+                                    }}>{p}</div>
+                        })}
+                    </div>
                 </div>
                 {props.users.map(u => <div key={u.id}>
                 <span>
@@ -33,7 +30,7 @@ const FindUsers = (props) => {
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {
-                                props.unfollow(u.id)
+                                props.unFollow(u.id)
                             }}>Follow</button>
                             : <button onClick={() => {
                                 props.follow(u.id)
