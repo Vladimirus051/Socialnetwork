@@ -1,6 +1,7 @@
 import React from "react";
 import s from "./FindUsers.module.css";
 import userPhoto from "../../../assets/images/users_asset_image.png";
+import {NavLink} from "react-router-dom";
 
 const FindUsers = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -16,17 +17,20 @@ const FindUsers = (props) => {
                 <div>
                     <div className={s.selectedPages}>
                         {pages.map(p => {
-                            return <div style={{display: "inline-block"}} className={props.currentPage === p && s.selectedPage} onClick={
-                                    (e) => {
-                                        props.onPageChanged(p)
-                                    }}>{p}</div>
+                            return <div style={{display: "inline-block"}}
+                                        className={props.currentPage === p && s.selectedPage} onClick={
+                                (e) => {
+                                    props.onPageChanged(p)
+                                }}>{p}</div>
                         })}
                     </div>
                 </div>
                 {props.users.map(u => <div key={u.id}>
                 <span>
                     <div>
-                        <img className={s.users_photo} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                        <NavLink to={'/profile/' + u.id} className={s.users}>
+                            <img className={s.users_photo} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                        </NavLink>
                     </div>
                     <div>
                         {u.followed ? <button onClick={() => {

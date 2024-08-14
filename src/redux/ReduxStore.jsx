@@ -11,7 +11,6 @@ let reducers = combineReducers({
     findUsersPage: FindUsersReducer,
 })
 
-
 let store = createStore(reducers)
 
 window.store = store
