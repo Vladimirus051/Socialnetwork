@@ -2,6 +2,8 @@ import React from "react";
 import s from "./FindUsers.module.css";
 import userPhoto from "../../../assets/images/users_asset_image.png";
 import {NavLink} from "react-router-dom";
+import {followAPI} from "../../../API/api";
+import {toggleIsFollowingProgress} from "../../../redux/FindUsersReducer";
 
 const FindUsers = (props) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -33,12 +35,27 @@ const FindUsers = (props) => {
                         </NavLink>
                     </div>
                     <div>
-                        {u.followed ? <button onClick={() => {
-                                props.unFollow(u.id)
-                            }}>Follow</button>
-                            : <button onClick={() => {
-                                props.follow(u.id)
-                            }}>Unfollow</button>}
+                        {u.followed ?
+                            <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleIsFollowingProgress(true, u.id)
+                                followAPI.unFollowUser(u.id).then(data => {
+                                    if (data.resultCode === 0) {
+                                        props.unFollow(u.id)
+                                    }
+                                    props.toggleIsFollowingProgress(false, u.id)
+                                })
+                            }}>Unfollow</button>
+                            : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
+                                props.toggleIsFollowingProgress(true, u.id)
+                                followAPI.followUser(u.id).then(data => {
+                                    if (data.resultCode === 0) {
+                                        props.follow(u.id)
+                                    }
+                                    props.toggleIsFollowingProgress(false, u.id)
+                                })
+
+
+                            }}>Follow</button>}
                         </div>
                 </span>
                     <span>
