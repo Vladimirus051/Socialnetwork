@@ -3,17 +3,15 @@ import s from './Dialogs.module.css';
 import MessageItem from "./MessageItem/MessageItem";
 import DialogItem from "./DialogItem/DialogItem";
 
-
-
 const Dialogs = (props) => {
 
     debugger
     let dialogsItemDataElements = props.dialogPage.dialogs.map(el =>
-        (<DialogItem nameuser={el.name} id_user={el.id} key = {el.id}/>)
+        (<DialogItem nameuser={el.name} id_user={el.id} key={el.id}/>)
     )
 
     let messageElements = props.dialogPage.messages.map(el =>
-        (<MessageItem message={el.message} key = {el.id}/>)
+        (<MessageItem message={el.message} key={el.id}/>)
     )
 
     let newSendElement = React.createRef();
@@ -28,7 +26,6 @@ const Dialogs = (props) => {
         let text = newSendElement.current.value;
         props.updateNewMessageText(text)
     }
-
     return (
         <div className={s.dialogs}>
             <div className={s.dialogs_items}>

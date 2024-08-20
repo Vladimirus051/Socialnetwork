@@ -60,5 +60,3 @@ let store = {
 
 
 export default store
-
-window.store = store
