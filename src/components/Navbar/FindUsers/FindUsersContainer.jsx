@@ -13,7 +13,6 @@ import React from "react";
 import FindUsers from "./FindUsers";
 import Preloader from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
-import {render} from "@testing-library/react";
 import {compose} from "redux";
 
 class FindUsersContainer extends React.Component {

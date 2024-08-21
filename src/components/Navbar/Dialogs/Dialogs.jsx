@@ -5,7 +5,6 @@ import DialogItem from "./DialogItem/DialogItem";
 
 const Dialogs = (props) => {
 
-    debugger
     let dialogsItemDataElements = props.dialogPage.dialogs.map(el =>
         (<DialogItem nameuser={el.name} id_user={el.id} key={el.id}/>)
     )
@@ -17,7 +16,6 @@ const Dialogs = (props) => {
     let newSendElement = React.createRef();
 
     let SendMessage = () => {
-        debugger
         props.sendMessageText()
         props.updateNewMessageText('')
     }
