@@ -14,15 +14,25 @@ import FindUsers from "./FindUsers";
 import Preloader from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getFindUsers
+} from "../../../redux/Selectors/FinUsersSelectors";
 
 class FindUsersContainer extends React.Component {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
+
     onPageChanged = (pageNumber) => {
         this.props.setCurrentPage(pageNumber)
         this.props.getUsers(pageNumber, this.props.pageSize)
     }
+
     render() {
         return (
             <>
@@ -43,19 +53,33 @@ class FindUsersContainer extends React.Component {
         )
     }
 }
+
+// let mapStateToProps = (state) => {
+//     return {
+//         users: state.findUsersPage.users,
+//         pageSize: state.findUsersPage.pageSize,
+//         totalUsersCount: state.findUsersPage.totalUsersCount,
+//         currentPage: state.findUsersPage.currentPage,
+//         isFetching: state.findUsersPage.isFetching,
+//         followingInProgress: state.findUsersPage.followingInProgress
+//     }
+// }
 let mapStateToProps = (state) => {
     return {
-        users: state.findUsersPage.users,
-        pageSize: state.findUsersPage.pageSize,
-        totalUsersCount: state.findUsersPage.totalUsersCount,
-        currentPage: state.findUsersPage.currentPage,
-        isFetching: state.findUsersPage.isFetching,
-        followingInProgress: state.findUsersPage.followingInProgress
+        users: getFindUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 
+
 export default compose(
     withAuthRedirect,
-    connect(mapStateToProps, {followSuccess, unFollowSuccess, setCurrentPage,
-        toggleIsFollowingProgress, getUsers, follow, unFollow}),
+    connect(mapStateToProps, {
+        followSuccess, unFollowSuccess, setCurrentPage,
+        toggleIsFollowingProgress, getUsers, follow, unFollow
+    }),
 )(FindUsersContainer)

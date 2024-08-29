@@ -1,11 +1,17 @@
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validator";
+import {connect} from "react-redux";
+import {loginU} from "../../redux/authReducer";
+import {Navigate} from "react-router-dom";
+import s from '../common/FormsControls/FormsControls.module.css'
 
 const Login = (props) => {
     const onSubmit = (formData) => {
-        console.log(formData)
+        props.loginU(formData.email, formData.password, formData.rememberMe) //callback loginU
     }
+    if (props.isAuth) return <Navigate to={'/profile'}/>
+
     return (
         <div>
             <h1>Login</h1>
@@ -13,20 +19,23 @@ const Login = (props) => {
         </div>
     )
 }
-const maxLength10 = maxLengthCreator(10)
+const maxLength40 = maxLengthCreator(40)
 const LoginForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field placeholder={'Login'} name={'login'} component={Input} validate={[required, maxLength10]}/>
+                <Field placeholder={'Login'} name={'email'} component={Input} validate={[required, maxLength40]}/>
             </div>
             <div>
-                <Field placeholder={'Password'} name={'password'} component={Input} validate={[required, maxLength10]}/>
+                <Field type ={'password'} placeholder={'Password'} name={'password'} component={Input} validate={[required, maxLength40]}/>
             </div>
             <div>
                 <Field component={Input} name={'remember'} type={'checkbox'}/>
                 remember me
             </div>
+            {props.error && <div className={s.formSummaryError}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>
@@ -34,4 +43,7 @@ const LoginForm = (props) => {
     )
 }
 const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
-export default Login
+const mapStateToProps = (state) => ({
+    isAuth: state.auth.isAuth
+})
+export default connect(mapStateToProps, {loginU})(Login) //function loginU
