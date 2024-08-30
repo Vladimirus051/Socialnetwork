@@ -25,12 +25,14 @@ import {
 
 class FindUsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        let {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber) => {
+        let {pageSize} = this.props
         this.props.setCurrentPage(pageNumber)
-        this.props.getUsers(pageNumber, this.props.pageSize)
+        this.props.getUsers(pageNumber, pageSize)
     }
 
     render() {
@@ -48,22 +50,11 @@ class FindUsersContainer extends React.Component {
                            followingInProgress={this.props.followingInProgress}
                            follow={this.props.follow}
                            unFollow={this.props.unFollow}/>
-
             </>
         )
     }
 }
 
-// let mapStateToProps = (state) => {
-//     return {
-//         users: state.findUsersPage.users,
-//         pageSize: state.findUsersPage.pageSize,
-//         totalUsersCount: state.findUsersPage.totalUsersCount,
-//         currentPage: state.findUsersPage.currentPage,
-//         isFetching: state.findUsersPage.isFetching,
-//         followingInProgress: state.findUsersPage.followingInProgress
-//     }
-// }
 let mapStateToProps = (state) => {
     return {
         users: getFindUsers(state),
@@ -74,8 +65,6 @@ let mapStateToProps = (state) => {
         followingInProgress: getFollowingInProgress(state),
     }
 }
-
-
 export default compose(
     withAuthRedirect,
     connect(mapStateToProps, {

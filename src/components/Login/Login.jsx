@@ -1,5 +1,5 @@
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../common/FormsControls/FormsControls";
+import {CreateField, Input} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validator";
 import {connect} from "react-redux";
 import {loginU} from "../../redux/authReducer";
@@ -11,7 +11,6 @@ const Login = (props) => {
         props.loginU(formData.email, formData.password, formData.rememberMe) //callback loginU
     }
     if (props.isAuth) return <Navigate to={'/profile'}/>
-
     return (
         <div>
             <h1>Login</h1>
@@ -20,22 +19,16 @@ const Login = (props) => {
     )
 }
 const maxLength40 = maxLengthCreator(40)
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field placeholder={'Login'} name={'email'} component={Input} validate={[required, maxLength40]}/>
-            </div>
-            <div>
-                <Field type ={'password'} placeholder={'Password'} name={'password'} component={Input} validate={[required, maxLength40]}/>
-            </div>
-            <div>
-                <Field component={Input} name={'remember'} type={'checkbox'}/>
-                remember me
-            </div>
-            {props.error && <div className={s.formSummaryError}>
-                {props.error}
-            </div>}
+        <form onSubmit={handleSubmit}>
+            {CreateField('Email', 'email', [required, maxLength40], Input)}
+            {CreateField('Password', 'password', [required, maxLength40], Input)}
+            {CreateField('', 'remember', [], Input, {type: 'checkbox'}, 'remember me')}
+            {error &&
+                <div className={s.formSummaryError}>
+                    {error}
+                </div>}
             <div>
                 <button>Login</button>
             </div>
