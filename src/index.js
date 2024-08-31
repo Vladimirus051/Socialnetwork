@@ -5,16 +5,13 @@ import App from "./App";
 import store from "./redux/ReduxStore";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
+import MainSApp from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = () => {
     root.render(
-        <Provider store={store}>
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </Provider>
+        <MainSApp/>
     );
 }
 
