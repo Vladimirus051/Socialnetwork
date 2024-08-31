@@ -2,7 +2,7 @@
   "name": "my-new-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://vladimirus051.github.io/Socialnetwork",
+  "homepage": "https://vladimirus051.github.io/Socialnetwork/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

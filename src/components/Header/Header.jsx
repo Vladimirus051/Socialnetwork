@@ -12,7 +12,6 @@ const Header = (props) => {
                 : <NavLink to={'/login'}>Login</NavLink>}
         </div>
         <div>
-            vova.shanya@yandex.ru pydcu4-nowfAx-vuvtur
         </div>
     </header>
 }
