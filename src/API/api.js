@@ -1,10 +1,10 @@
 import axios from "axios";
 import {setAuthUserData} from "../redux/authReducer";
-
+const apiKey = process.env.REACT_APP_API_KEY;
 const instance = axios.create({
     withCredentials: true,
     headers: {
-        "API-KEY": "47921e3b-152d-4e34-8c1d-4d30f9c1886f"
+        "API-KEY": apiKey
     },
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
