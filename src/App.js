@@ -5,9 +5,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Music from "./components/Navbar/Music/Music";
 import News from "./components/Navbar/News/News";
 import Settings from "./components/Navbar/Settings/Settings";
-import DialogsContainer from "./components/Navbar/Dialogs/DialogsContainer";
 import FindUsersContainer from "./components/Navbar/FindUsers/FindUsersContainer";
-import ProfileContainer from "./components/Navbar/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -16,16 +14,20 @@ import Preloader_2 from "./components/common/preloader/Preloader_2";
 import {compose} from "redux";
 import withRouter from "./withRouter";
 import store from "./redux/ReduxStore";
+import {withSuspense} from "./hoc/withSuspense";
+
+const ProfileContainer = withSuspense(React.lazy(() => import('./components/Navbar/Profile/ProfileContainer.jsx')))
+const DialogsContainer = withSuspense(React.lazy(() => import('./components/Navbar/Dialogs/DialogsContainer.jsx')))
 
 class App extends React.Component {
     componentDidMount() {
-        this.props.initializeApp()
+        this.props.initializeApp();
     }
+
     render() {
-        if (!this.props.initialized){
-        return (
-            <Preloader_2/>
-        )}
+        if (!this.props.initialized) {
+            return <Preloader_2/>;
+        }
         return (
             <div className='app-wrapper'>
                 <HeaderContainer/>
@@ -33,7 +35,7 @@ class App extends React.Component {
                 <div className='app-wrapper-content'>
                     <Routes>
                         <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
-                        <Route path="/dialogs/*" element={<DialogsContainer/>}/>
+                        <Route path="/dialogs" element={<DialogsContainer/>}/>
                         <Route path="/news" element={<News/>}/>
                         <Route path="/music" element={<Music/>}/>
                         <Route path="/settings" element={<Settings/>}/>
@@ -56,7 +58,7 @@ let AppContainer = compose(
 const MainApp = (props) => {
     return <BrowserRouter>
         <Provider store={store}>
-            <AppContainer />
+            <AppContainer/>
         </Provider>
     </BrowserRouter>
 }
