@@ -11,7 +11,7 @@ const FindUsers = ({
         <div>
             <div>
                 <Paginator
-                    totalUsersCount={totalUsersCount}
+                    totalItemsCount={totalUsersCount}
                     pageSize={pageSize}
                     currentPage={currentPage}
                     onPageChanged={onPageChanged}/>
