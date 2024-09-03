@@ -2,9 +2,7 @@ import s from './ProfileInfo.module.css';
 import Preloader from "../../../common/preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import user_asset from '../../../../assets/images/users_asset_image.png'
-import {reduxForm} from "redux-form";
 import {useState} from "react";
-import ProfileDataForm from "./ProfileDataForm";
 import ProfileDataReduxForm from "./ProfileDataForm";
 
 const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhotoFile, saveProfile}) => {
@@ -19,8 +17,11 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhotoFile, sav
         }
     }
     const onSubmit = (formData) => {
-        saveProfile(formData)
-        setEditMode(false)
+        saveProfile(formData).then(() => {
+            setEditMode(false)
+        })
+
+        //setEditMode(false)
     }
     return <div>
         <div className={s.description}>
@@ -29,10 +30,11 @@ const ProfileInfo = ({profile, status, updateStatus, isOwner, savePhotoFile, sav
             </div>
             {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
             <ProfileStatusWithHooks status={status} updateStatus={updateStatus}/>
-            {editMode ? <ProfileDataReduxForm onSubmit={onSubmit} profile={profile} initialValues={profile}/> : <ProfileData
-                activateEditMode={() => setEditMode(true)}
-                profile={profile}
-                isOwner={isOwner}/>}
+            {editMode ? <ProfileDataReduxForm onSubmit={onSubmit} profile={profile} initialValues={profile}/> :
+                <ProfileData
+                    activateEditMode={() => setEditMode(true)}
+                    profile={profile}
+                    isOwner={isOwner}/>}
 
         </div>
     </div>
