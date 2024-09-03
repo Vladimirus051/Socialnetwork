@@ -1,13 +1,21 @@
 import React from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
-import { getStatus, getUserProfile, updateStatus } from "../../../redux/ProfileReducer";
+import {
+    getStatus,
+    getUserProfile,
+    savePhoto,
+    savePhotoFile,
+    saveProfile,
+    updateStatus
+} from "../../../redux/ProfileReducer";
 import { compose } from "redux";
 import withRouter from "../../../withRouter";
 import { Navigate } from "react-router-dom";
 
 class ProfileContainer extends React.Component {
-    componentDidMount() {
+
+    refreshProfile = () => {
         let userId = this.props.router.params.userId || this.props.authorizedUserId;
 
         if (!userId) {
@@ -18,6 +26,15 @@ class ProfileContainer extends React.Component {
         this.props.getUserProfile(userId);
         this.props.getStatus(userId);
     }
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.router.params.userId !== this.props.router.params.userId) {
+            this.refreshProfile()
+        }
+    }
 
     render() {
         if (!this.props.router.params.userId && !this.props.authorizedUserId) {
@@ -25,7 +42,7 @@ class ProfileContainer extends React.Component {
         }
         return (
             <div>
-                <Profile {...this.props} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} />
+                <Profile {...this.props} saveProfile={this.props.saveProfile} savePhotoFile={this.props.savePhotoFile} isOwner={!this.props.router.params.userId} profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus} />
             </div>
         );
     }
@@ -40,5 +57,5 @@ let mapStateToProps = (state) => ({
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus })
+    connect(mapStateToProps, { getUserProfile, getStatus, updateStatus, savePhotoFile, saveProfile}),
 )(ProfileContainer);

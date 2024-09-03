@@ -1,11 +1,12 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import React from "react";
+import {savePhotoFile} from "../../../redux/ProfileReducer";
 
 const Profile = (props) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo saveProfile={props.saveProfile} savePhotoFile={props.savePhotoFile} isOwner={!props.router.params.userId} profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
             <MyPostsContainer/>
         </div>
     )

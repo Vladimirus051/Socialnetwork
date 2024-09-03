@@ -1,5 +1,4 @@
 import axios from "axios";
-import {setAuthUserData} from "../redux/authReducer";
 const apiKey = process.env.REACT_APP_API_KEY;
 const instance = axios.create({
     withCredentials: true,
@@ -47,5 +46,13 @@ export const profileAPI = {
     },
     updateStatus(status) {
         return instance.put('profile/status', {status: status})
+    },
+    savePhoto(file) {
+        const form = new FormData()
+        form.append('image', file)
+        return instance.put(`profile/photo/`,form, {headers: {'Content-Type': 'multipart/form-data'}})
+    },
+    saveProfile(profile) {
+        return instance.put(`profile`, profile)
     }
 }

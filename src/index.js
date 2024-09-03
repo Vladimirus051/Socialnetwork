@@ -1,10 +1,6 @@
 import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom/client";
 import React from "react";
-import App from "./App";
-import store from "./redux/ReduxStore";
-import {BrowserRouter} from "react-router-dom";
-import {Provider} from "react-redux";
 import MainSApp from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

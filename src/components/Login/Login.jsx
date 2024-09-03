@@ -23,7 +23,7 @@ const LoginForm = ({handleSubmit, error}) => {
     return (
         <form onSubmit={handleSubmit}>
             {CreateField('Email', 'email', [required, maxLength40], Input)}
-            {CreateField('Password', 'password', [required, maxLength40], Input)}
+            {CreateField('Password', 'password', [required, maxLength40], Input, {type: 'password'})}
             {CreateField('', 'remember', [], Input, {type: 'checkbox'}, 'remember me')}
             {error &&
                 <div className={s.formSummaryError}>
