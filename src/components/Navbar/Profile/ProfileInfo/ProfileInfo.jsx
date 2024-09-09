@@ -66,7 +66,7 @@ export const Contact = ({contactTitle, contactValue}) => {
 
     return (
         <div className={s.contact}>
-            {contactTitle}: {contactValue}
+            {contactTitle}: <a href={contactValue}>{contactValue}</a>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Navbar from "./components/Navbar/Navbar";
-import {BrowserRouter, Route, Routes, HashRouter} from "react-router-dom";
+import {BrowserRouter, Route, Routes, HashRouter, Navigate} from "react-router-dom";
 import Music from "./components/Navbar/Music/Music";
 import News from "./components/Navbar/News/News";
 import Settings from "./components/Navbar/Settings/Settings";
@@ -20,8 +20,17 @@ const ProfileContainer = withSuspense(React.lazy(() => import('./components/Navb
 const DialogsContainer = withSuspense(React.lazy(() => import('./components/Navbar/Dialogs/DialogsContainer.jsx')))
 
 class App extends React.Component {
-    componentDidMount() {
-        this.props.initializeApp();
+    catchAllUnhandledErrors = (reason, promise) => {
+        alert('Some error occured')
+    }
+
+    componentDidMount() { // происхоидит в первую очередь
+        this.props.initializeApp(); // происхоидит инициализация приложения
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
     }
 
     render() {
@@ -34,6 +43,7 @@ class App extends React.Component {
                 <Navbar/>
                 <div className='app-wrapper-content'>
                     <Routes>
+                        <Route path="/" element={<Navigate to={'/profile'}/>}/>
                         <Route path="/profile/:userId?" element={<ProfileContainer/>}/>
                         <Route path="/dialogs" element={<DialogsContainer/>}/>
                         <Route path="/news" element={<News/>}/>
@@ -41,6 +51,7 @@ class App extends React.Component {
                         <Route path="/settings" element={<Settings/>}/>
                         <Route path="/find_users" element={<FindUsersContainer/>}/>
                         <Route path="/login" element={<Login/>}/>
+                        <Route path="*" element={<div>404 NOT FOUND</div>}/>
                     </Routes>
                 </div>
             </div>
@@ -55,12 +66,12 @@ let AppContainer = compose(
     withRouter,
     connect(mapStateToProps, {initializeApp}))(App);
 
-const MainApp = (props) => {
-    return <HashRouter>
+const MainApp = () => {
+    return <BrowserRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
-    </HashRouter>
+    </BrowserRouter>
 }
-
+// хэш роутер нужен для github Pages, для остальных - BrowserRouter
 export default MainApp;
