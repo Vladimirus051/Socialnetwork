@@ -1,5 +1,10 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
 
+type SEND_MESSAGE_TYPE = {
+    type: typeof SEND_MESSAGE
+    newMessageText: string
+}
+
 let initialState = {
     dialogs: [
         {id: 1, name: 'Dima'},
@@ -18,7 +23,8 @@ let initialState = {
         {id: 6, message: 'Minecraft'},
     ],
 }
-const DialogsReducer = (state = initialState, action) => {
+
+const DialogsReducer = (state: typeof initialState = initialState, action: SEND_MESSAGE_TYPE) => {
 
     switch (action.type) {
         case SEND_MESSAGE:
@@ -37,7 +43,7 @@ const DialogsReducer = (state = initialState, action) => {
     }
 }
 
-export const sendMessageTextActionCreator = (newMessageText) => ({
+export const sendMessageTextActionCreator = (newMessageText: string): SEND_MESSAGE_TYPE => ({
     type: SEND_MESSAGE,
     newMessageText
 })
