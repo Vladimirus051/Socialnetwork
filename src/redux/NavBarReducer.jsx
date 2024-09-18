@@ -1,6 +1,7 @@
 let initialState = {
 
 }
+
 const NavBarReducer =(state = initialState, action) => {
 
     return state

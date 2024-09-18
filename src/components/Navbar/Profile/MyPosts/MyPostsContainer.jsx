@@ -1,8 +1,7 @@
-import {addPostsActionCreator, updateNewPostTextActionCreator} from "../../../../redux/ProfileReducer";
+import {addPostsActionCreator} from "../../../../redux/ProfileReducer.tsx";
 import MyPosts from "./MyPosts";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {withAuthRedirect} from "../../../../hoc/WithAuthRedirect";
 
 
 let mapStateToProps = (state) => {

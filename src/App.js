@@ -9,7 +9,7 @@ import FindUsersContainer from "./components/Navbar/FindUsers/FindUsersContainer
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
-import {initializeApp} from "./redux/appReducer";
+import {initializeApp} from "./redux/appReducer.ts";
 import Preloader_2 from "./components/common/preloader/Preloader_2";
 import {compose} from "redux";
 import withRouter from "./withRouter";

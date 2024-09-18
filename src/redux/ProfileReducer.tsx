@@ -1,5 +1,6 @@
 import {profileAPI} from "../API/api";
 import {stopSubmit} from "redux-form";
+import {postType, profileType} from "../types/types_for_app";
 
 const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
@@ -11,14 +12,15 @@ let initialState = {
     posts: [
         {id: 1, message: 'How r u?', likesCount: 15},
         {id: 2, message: 'Its my 1 post', likesCount: 122},
-    ],
+    ] as Array<postType>,
     newPostText: 'It-s my new post',
-    profile: null,
+    profile: null as profileType | null,
     status: '',
     profileSaved: false
 }
+export type initialStateType = typeof initialState
 
-const ProfileReducer = (state = initialState, action) => {
+const ProfileReducer = (state = initialState, action: any): initialStateType => {
 
     switch (action.type) {
         case ADD_POST: {
@@ -51,11 +53,32 @@ const ProfileReducer = (state = initialState, action) => {
             return state
     }
 }
-export const setUserPhoto = (photos) => ({type: 'SET-USER-PHOTO', photos})
-export const addPostsActionCreator = (newPostText) => ({type: ADD_POST, newPostText})
-export const setStatus = (status) => ({type: SET_STATUS, status})
-export const setUserProfile = (profile) => ({type: SET_USER_PROFILE, profile})
-export const deletePost = (postId) => ({type: DELETE_POST, postId: postId});
+
+type setUserPhotoActionType = {
+    type: typeof SET_USER_PHOTO
+    photos: photosType
+}
+export const setUserPhoto = (photos: photosType): setUserPhotoActionType => ({type: 'SET-USER-PHOTO', photos})
+type AddPostActionType = {
+    type: typeof ADD_POST
+    newPostText: string
+}
+export const addPostsActionCreator = (newPostText): AddPostActionType => ({type: ADD_POST, newPostText})
+type setStatusActionType = {
+    type: typeof SET_STATUS
+    status: string
+}
+export const setStatus = (status: string): setStatusActionType => ({type: SET_STATUS, status})
+type setUserProfileActionType = {
+    type: typeof SET_USER_PROFILE
+    profile: profileType
+}
+export const setUserProfile = (profile: profileType): setUserProfileActionType => ({type: SET_USER_PROFILE, profile})
+type deletePostActionType = {
+    type: typeof DELETE_POST
+    postId: number
+}
+export const deletePost = (postId: number): deletePostActionType => ({type: DELETE_POST, postId: postId});
 
 export const getUserProfile = (userId) => async (dispatch) => {
     let response = await profileAPI.getProfile(userId)
@@ -66,12 +89,12 @@ export const getStatus = (userId) => async (dispatch) => {
     dispatch(setStatus(response.data))
 }
 export const updateStatus = (status) => async (dispatch) => {
-    try{
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(setStatus(status))
-    }}
-    catch (e) {
+    try {
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
+    } catch (e) {
         console.log(e)
         debugger
     }
@@ -86,8 +109,7 @@ export const saveProfile = (profile) => async (dispatch, getState) => {
     let response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
         dispatch(getUserProfile(getState().auth.userId))
-    }
-    else {
+    } else {
         let message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
         dispatch(stopSubmit('edit-profile', {_error: message}))
         return Promise.reject(message)

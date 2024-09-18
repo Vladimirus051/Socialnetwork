@@ -8,7 +8,7 @@ import {
     unFollow,
     unFollowSuccess,
 }
-    from "../../../redux/FindUsersReducer";
+    from "../../../redux/FindUsersReducer.ts";
 import React from "react";
 import FindUsers from "./FindUsers";
 import Preloader from "../../common/preloader/Preloader";

@@ -1,7 +1,6 @@
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import React from "react";
-import {savePhotoFile} from "../../../redux/ProfileReducer";
 
 const Profile = (props) => {
     return (
