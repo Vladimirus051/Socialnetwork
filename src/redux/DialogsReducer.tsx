@@ -10,7 +10,7 @@ type DialogType = {
 }
 type MessageType = {
     id: number
-    name: string
+    message: string
 }
 let initialState = {
     dialogs: [

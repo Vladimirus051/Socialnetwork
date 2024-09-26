@@ -7,7 +7,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 let rerenderEntireTree = () => {
     root.render(
-        <MainSApp/>
+        <React.StrictMode><
+            MainSApp/>
+        </React.StrictMode>
     );
 }
 

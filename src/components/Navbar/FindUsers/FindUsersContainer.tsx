@@ -22,16 +22,32 @@ import {
     getTotalUsersCount,
     getFindUsers
 } from "../../../redux/Selectors/FinUsersSelectors";
+import {UserType} from "../../../types/types_for_app";
 
-class FindUsersContainer extends React.Component {
+type PropsType = {
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
+    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
+    followingInProgress: Array<number>
+    getUsers: (currentPage: number, pageSize: number) => void
+    followSuccess: (userId: number) => void
+    unFollowSuccess: (userId: number) => void
+    isFetching: boolean,
+}
+class FindUsersContainer extends React.Component <PropsType> {
     componentDidMount() {
         let {currentPage, pageSize} = this.props
         this.props.getUsers(currentPage, pageSize)
     }
 
-    onPageChanged = (pageNumber) => {
-        let {pageSize} = this.props
-        this.props.setCurrentPage(pageNumber)
+    onPageChanged = (pageNumber: Number) => {
+        const {pageSize} = this.props
+        // this.props.setCurrentPage(pageNumber)
         this.props.getUsers(pageNumber, pageSize)
     }
 
@@ -69,6 +85,6 @@ export default compose(
     withAuthRedirect,
     connect(mapStateToProps, {
         followSuccess, unFollowSuccess, setCurrentPage,
-        toggleIsFollowingProgress, getUsers, follow, unFollow
+        toggleIsFollowingProgress, getUsers, follow, unFollow,
     }),
 )(FindUsersContainer)

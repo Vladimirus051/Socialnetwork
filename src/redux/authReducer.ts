@@ -4,12 +4,12 @@ import {stopSubmit} from "redux-form";
 const SET_USER_DATA = 'my-new-app/authReducer/SET_USER_DATA';
 const SET_CAPTCHA_URL = 'my-new-app/authReducer/SET-CAPTCHA-URL';
 
-let initialState: initialStateType = {
+let initialState = {
     userId: null as string | null,
     email: null as string | null,
     login: null as string | null,
     isAuth: false as boolean | null,
-    captchaUrl: null as string
+    captchaUrl: null as string | null
 }
 export type initialStateType = typeof initialState
 const authReducer = (state = initialState, action: any): initialStateType => {
