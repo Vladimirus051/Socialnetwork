@@ -32,6 +32,8 @@ export const followAPI = {
 export enum ResultCodeEnum {
     Success = 0,
     Error = 1,
+}
+export enum ResultCodeWithCaptchaEnum {
     CaptchaIsRequired = 10
 }
 
@@ -44,12 +46,19 @@ type MeResponseType = {
     resultCode: ResultCodeEnum
     messages: Array<string>
 }
+type loginResponseType = {
+    data: {
+        userId: string
+    }
+    resultCode: ResultCodeEnum | ResultCodeWithCaptchaEnum
+    messages: Array<string>
+}
 export const authAPI = {
     me() {
         return instance.get<MeResponseType>(`auth/me`).then(res => res.data)
     },
     loginUser(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
-        return instance.post(`auth/login`, {email, password, rememberMe, captcha})
+        return instance.post<loginResponseType>(`auth/login`, {email, password, rememberMe, captcha}).then(res => res.data)
     },
     logoutUser() {
         return instance.delete(`auth/login`)
