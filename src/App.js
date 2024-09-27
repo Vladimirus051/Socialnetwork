@@ -5,7 +5,6 @@ import {BrowserRouter, Route, Routes, HashRouter, Navigate} from "react-router-d
 import Music from "./components/Navbar/Music/Music";
 import News from "./components/Navbar/News/News";
 import Settings from "./components/Navbar/Settings/Settings";
-import FindUsersContainer from "./components/Navbar/FindUsers/FindUsersContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
@@ -15,6 +14,7 @@ import {compose} from "redux";
 import withRouter from "./withRouter";
 import store from "./redux/ReduxStore";
 import {withSuspense} from "./hoc/withSuspense";
+import FindUsersContainer from "./components/Navbar/FindUsers/FindUserContainer";
 
 const ProfileContainer = withSuspense(React.lazy(() => import('./components/Navbar/Profile/ProfileContainer.jsx')))
 const DialogsContainer = withSuspense(React.lazy(() => import('./components/Navbar/Dialogs/DialogsContainer.jsx')))

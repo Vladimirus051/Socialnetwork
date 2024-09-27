@@ -1,4 +1,4 @@
-import {authAPI} from "../API/api.js";
+import {authAPI, ResultCodeEnum} from "../API/api";
 import {stopSubmit} from "redux-form";
 
 const SET_USER_DATA = 'my-new-app/authReducer/SET_USER_DATA';
@@ -57,9 +57,9 @@ export const setCaptchaUrl = (captchaUrl: string): setCaptchaUrlActionType => (
     }
 )
 export const getAuthUserData = () => async (dispatch: any) => {
-    let response = await authAPI.me()
-    if (response.data.resultCode === 0) {
-        let {id, login, email} = response.data.data
+    let meData = await authAPI.me()
+    if (meData.resultCode === ResultCodeEnum.Success) {
+        let {id, login, email} = meData.data
         dispatch(setAuthUserData(id, email, login, true))
     }
 }

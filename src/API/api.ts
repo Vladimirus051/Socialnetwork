@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
+import {profileType} from "../types/types_for_app";
+
 const apiKey = process.env.REACT_APP_API_KEY;
 const instance = axios.create({
     withCredentials: true,
@@ -15,22 +17,38 @@ export const usersAPI = {
     },
 }
 export const followAPI = {
-    followUser(userId) {
+    followUser(userId: number) {
         return instance.post(`follow/${userId}`, {}, {}).then(response => {
             return response.data
         })
     },
-    unFollowUser(userId) {
+    unFollowUser(userId: number) {
         return instance.delete(`follow/${userId}`, {}).then(response => {
             return response.data
         })
     }
 }
+
+export enum ResultCodeEnum {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
+type MeResponseType = {
+    data: {
+        id: string
+        email: string
+        login: string
+    }
+    resultCode: ResultCodeEnum
+    messages: Array<string>
+}
 export const authAPI = {
     me() {
-        return instance.get(`auth/me`)
+        return instance.get<MeResponseType>(`auth/me`).then(res => res.data)
     },
-    loginUser(email, password, rememberMe = false, captcha = null) {
+    loginUser(email: string, password: string, rememberMe: boolean = false, captcha: string | null = null) {
         return instance.post(`auth/login`, {email, password, rememberMe, captcha})
     },
     logoutUser() {
@@ -41,21 +59,21 @@ export const authAPI = {
     }
 }
 export const profileAPI = {
-    getProfile(userId) {
+    getProfile(userId: number) {
         return instance.get('profile/' + userId)
     },
-    getStatus(userId) {
+    getStatus(userId: number) {
         return instance.get('profile/status/' + userId)
     },
-    updateStatus(status) {
+    updateStatus(status: string) {
         return instance.put('profile/status', {status: status})
     },
-    savePhoto(file) {
+    savePhoto(file: any) {
         const form = new FormData()
         form.append('image', file)
-        return instance.put(`profile/photo/`,form, {headers: {'Content-Type': 'multipart/form-data'}})
+        return instance.put(`profile/photo/`, form, {headers: {'Content-Type': 'multipart/form-data'}})
     },
-    saveProfile(profile) {
+    saveProfile(profile: profileType) {
         return instance.put(`profile`, profile)
     }
 }
