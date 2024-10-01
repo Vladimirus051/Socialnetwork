@@ -21,7 +21,6 @@ let initialState = {
     currentPage: 1 as number,
     isFetching: false as boolean,
     followingInProgress: [] as Array<number>,
-
 }
 type initialStateType = typeof initialState
 const FindUsersReducer = (state = initialState, action: ActionsType): initialStateType => {
