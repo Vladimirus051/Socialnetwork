@@ -76,7 +76,6 @@ const mapStateToProps = (state: appStateType) => ({
 
 export default compose(
     withAuthRedirect,
-    // @ts-ignore
     connect(mapStateToProps, {
         getUsers,
         follow,

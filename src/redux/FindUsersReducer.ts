@@ -1,9 +1,9 @@
-import {followAPI, usersAPI} from "../API/api";
 import {updateObjectInArray} from "../utils/objectsHelpers";
 import {UserType} from "../types/types_for_app";
 import {InferActionTypes, appStateType} from "./ReduxStore";
 import {Dispatch} from "redux";
 import {ThunkAction} from "redux-thunk";
+import {followAPI, usersAPI} from "../API/users-api";
 
 const SET_USERS = 'my-new-app/FindUsersReducer/SET_USERS';
 const FOLLOW = 'my-new-app/FindUsersReducer/FOLLOW';
