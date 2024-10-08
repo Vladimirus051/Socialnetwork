@@ -18,17 +18,9 @@ type StateType = {
     auth: MapStateToPropsType
 }
 type LoginPropsType = MapStateToPropsType & MapDispatchToPropsType
-// type LoginFormDataType = {
-//     captcha: string | null
-//     email: string | null
-//     password: string | null
-//     rememberMe: boolean
-//
-// }
 type CaptchaUrlType = {
     captchaUrl: string | null
 }
-
 export type LoginFormDataType = {
     captcha: string | null
     email: string | null

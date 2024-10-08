@@ -1,14 +1,7 @@
 import React from 'react';
 import {compose} from 'redux';
-import {
-    follow,
-    followSuccess,
-    getUsers,
-    setCurrentPage,
-    toggleIsFollowingProgress,
-    unFollow,
-    unFollowSuccess,
-} from '../../../redux/FindUsersReducer.ts';
+import {actions, follow, getUsers, unFollow} from "../../../redux/FindUsersReducer";
+
 import FindUsers from './FindUsers';
 import Preloader from '../../common/preloader/Preloader';
 import {withAuthRedirect} from '../../../hoc/WithAuthRedirect';
@@ -85,10 +78,6 @@ export default compose(
     withAuthRedirect,
     // @ts-ignore
     connect(mapStateToProps, {
-        followSuccess,
-        unFollowSuccess,
-        setCurrentPage,
-        toggleIsFollowingProgress,
         getUsers,
         follow,
         unFollow
