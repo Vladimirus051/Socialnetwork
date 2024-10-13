@@ -2,7 +2,7 @@ import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Input} from "../common/FormsControls/FormsControls";
 import {maxLengthCreator, required} from "../../utils/validators/validator";
 import {connect} from "react-redux";
-import {loginU} from "../../redux/authReducer.ts";
+import {loginUser} from "../../redux/authReducer.ts";
 import {Navigate} from "react-router-dom";
 import s from '../common/FormsControls/FormsControls.module.css'
 import React from "react";
@@ -69,4 +69,4 @@ const mapStateToProps = (state: StateType): MapStateToPropsType => ({
     isAuth: state.auth.isAuth,
     captchaUrl: state.auth.captchaUrl
 })
-export default connect(mapStateToProps, {loginU})(Login) //function loginU
+export default connect(mapStateToProps, {loginU: loginUser})(Login) //function loginU

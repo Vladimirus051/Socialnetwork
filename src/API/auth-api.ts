@@ -8,7 +8,9 @@ type MeResponseDataType = {
 type loginResponseDataType = {
     userId: string
 }
-
+type getCaptchaUrlDataType = {
+    url: string
+}
 export const authAPI = {
     async me() {
         let res = await instance.get<APIResponseType<MeResponseDataType>>(`auth/me`);
@@ -27,6 +29,6 @@ export const authAPI = {
         return instance.delete(`auth/login`)
     },
     getCaptchaUrl() {
-        return instance.get(`security/get-captcha-url`)
+        return instance.get<getCaptchaUrlDataType>(`security/get-captcha-url`)
     }
 }
